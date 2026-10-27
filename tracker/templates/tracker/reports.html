@@ -1,0 +1,83 @@
+
+{% extends "tracker/base.html" %}
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+<h2>Financial Reports — {{ report_year }}</h2>
+
+<div class="row g-4 mt-2">
+    <div class="col-md-6">
+        <div class="card p-3">
+            <h5>Expenses by Category</h5>
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card p-3">
+            <h5>Monthly Income vs Expenses</h5>
+            <canvas id="monthlyChart"></canvas>
+        </div>
+    </div>
+</div>
+
+{{ category_labels|json_script:"category-labels" }}
+{{ category_values|json_script:"category-values" }}
+{{ monthly_labels|json_script:"monthly-labels" }}
+{{ monthly_income|json_script:"monthly-income" }}
+{{ monthly_expenses|json_script:"monthly-expenses" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const categoryLabels = JSON.parse(
+    document.getElementById("category-labels").textContent
+);
+const categoryValues = JSON.parse(
+    document.getElementById("category-values").textContent
+);
+const monthlyLabels = JSON.parse(
+    document.getElementById("monthly-labels").textContent
+);
+const monthlyIncome = JSON.parse(
+    document.getElementById("monthly-income").textContent
+);
+const monthlyExpenses = JSON.parse(
+    document.getElementById("monthly-expenses").textContent
+);
+
+new Chart(document.getElementById("categoryChart"), {
+    type: "pie",
+    data: {
+        labels: categoryLabels,
+        datasets: [{
+            data: categoryValues
+        }]
+    }
+});
+
+new Chart(document.getElementById("monthlyChart"), {
+    type: "bar",
+    data: {
+        labels: monthlyLabels,
+        datasets: [
+            {
+                label: "Income",
+                data: monthlyIncome
+            },
+            {
+                label: "Expenses",
+                data: monthlyExpenses
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

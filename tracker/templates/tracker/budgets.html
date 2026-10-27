@@ -1,0 +1,41 @@
+
+{% extends "tracker/base.html" %}
+{% block title %}Monthly Budgets{% endblock %}
+
+{% block content %}
+<h2>Monthly Budgets</h2>
+
+<div class="card p-3 mb-4">
+    <h5>Set a Budget</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Save Budget</button>
+    </form>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Limit</th>
+            <th>Spent</th>
+            <th>Remaining</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for budget in budget_items %}
+        <tr>
+            <td>{{ budget.category.name }}</td>
+            <td>₹{{ budget.limit_amount|floatformat:2 }}</td>
+            <td>₹{{ budget.spent|floatformat:2 }}</td>
+            <td>₹{{ budget.remaining|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No budgets set for this month.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

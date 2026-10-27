@@ -1,0 +1,41 @@
+
+{% extends "tracker/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="simple-auth-card">
+    <h2>Login</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="auth-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="auth-field">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div class="auth-field">
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+
+        <button type="submit" class="auth-button">Login</button>
+    </form>
+
+    <p class="auth-link">
+        Don't have an account?
+        <a href="{% url 'register' %}">Create account</a>
+    </p>
+</div>
+{% endblock %}

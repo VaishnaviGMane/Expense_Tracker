@@ -1,0 +1,58 @@
+
+{% extends "tracker/base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Monthly Dashboard</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card p-3 border-success">
+            <h5>Total Income</h5>
+            <h3 class="text-success">₹{{ income|floatformat:2 }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 border-danger">
+            <h5>Total Expenses</h5>
+            <h3 class="text-danger">₹{{ expenses|floatformat:2 }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 border-primary">
+            <h5>Remaining Balance</h5>
+            <h3>₹{{ balance|floatformat:2 }}</h3>
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'add_transaction' %}" class="btn btn-primary">
+    + Add Transaction
+</a>
+
+<h4 class="mt-4">Recent Transactions</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in recent_transactions %}
+        <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.get_transaction_type_display }}</td>
+            <td>₹{{ item.amount|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No transactions this month.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
