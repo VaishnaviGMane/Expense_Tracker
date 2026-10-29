@@ -18,17 +18,10 @@ Technologies Used
 - HTML and CSS
 - Bootstrap
 - Chart.js
-  
-expense_tracker/
-├── manage.py
-├── config/             # Django project settings and main URLs
-└── tracker/
-    ├── models.py       # Category, Transaction, and Budget models
-    ├── forms.py        # Forms for user input
-    ├── views.py        # Application logic
-    ├── urls.py         # App URL routes
-    ├── templates/      # HTML templates
-    └── static/         # CSS and other static files
+
+Project Structure
+
+<img width="706" height="241" alt="image" src="https://github.com/user-attachments/assets/9b367546-b5f7-49e4-bf57-cfab0cdffc8c" />
 
 Requirements
 - Python
