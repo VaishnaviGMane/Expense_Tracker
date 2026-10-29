@@ -57,17 +57,27 @@ Activate it on Windows:
 python manage.py runserver
 Open the application at:
 http://127.0.0.1:8000/
+
 Main Pages
   Page              URL
   Dashboard         /
+
   Register          /register/
+  
   Login             /login/
+  
   Transactions      /transactions/
+  
   Add Transaction   /transactions/add/
+  
   Add Category      /categories/add/
+  
   Budgets           /budgets/
+  
   Reports           /reports/
+  
   Admin             /admin/
+  
 How to Use
 1. Register and log in.
 2. Create categories for your transactions.
